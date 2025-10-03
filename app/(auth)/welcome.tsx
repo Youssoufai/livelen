@@ -1,7 +1,7 @@
+import { Facebook, Github } from "lucide-react-native";
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Button from "../components/button";
-
 export default function Welcome() {
     return (
         <View style={styles.container}>
@@ -23,9 +23,9 @@ export default function Welcome() {
 
             {/* Action Buttons */}
             <View style={styles.buttonGroup}>
-                <Button title="Continue with Google" textColor="#fff" style={styles.googleButton} />
-                <Button title="Continue with Facebook" style={styles.facebookButton} />
-                <Button title="Continue with Email" />
+
+                <Button title="Continue with Facebook" icon={Facebook} onPress={() => { }} />
+                <Button title="Continue with Github" icon={Github} textColor="#000" style={{ backgroundColor: "#fff" }} />
             </View>
 
             {/* Divider */}
@@ -61,7 +61,9 @@ const styles = StyleSheet.create({
         color: "white",
     },
     emailButton: {
-        backgroundColor: "white"
+        backgroundColor: "white",
+        borderWidth: 1,
+        borderColor: "#e6e2e2ff"
     },
     logoContainer: {
         marginBottom: 20,
