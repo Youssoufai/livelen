@@ -1,32 +1,109 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import Button from '../components/button'
+import React from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import Button from "../components/button";
 
 export default function Welcome() {
     return (
-        <View>
-            <View>
-                <Image source={require('@/assets/images/logo.png')} />
+        <View style={styles.container}>
+            {/* Logo */}
+            <View style={styles.logoContainer}>
+                <Image source={require("@/assets/images/logo.png")} style={styles.logo} />
             </View>
-            <Text>Welcome to Livelens</Text>
-            <Text>Location insights at your fingertips</Text>
-            <View>
-                <Image source={require('@/assets/images/welcome.png')} />
+
+            {/* Headline */}
+            <Text style={styles.title}>Welcome to LiveLens</Text>
+            <Text style={styles.subtitle}>Location insights at your fingertips</Text>
+
+            {/* Illustration */}
+            <Image
+                source={require("@/assets/images/welcome.png")}
+                style={styles.illustration}
+                resizeMode="contain"
+            />
+
+            {/* Action Buttons */}
+            <View style={styles.buttonGroup}>
+                <Button title="Continue with Google" textColor="#fff" style={styles.googleButton} />
+                <Button title="Continue with Facebook" style={styles.facebookButton} />
+                <Button title="Continue with Email" />
             </View>
-            <View>
-                <Button />
-            </View>
+
+            {/* Divider */}
+            <Text style={styles.divider}>───────── OR ─────────</Text>
+
+            {/* Sign in link */}
+            <Text style={styles.footerText}>
+                Already have an account?{" "}
+                <Pressable onPress={() => { /* navigation logic */ }}>
+                    <Text style={styles.signIn}>Sign in</Text>
+                </Pressable>
+            </Text>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
-    confirmButton: {
-        backgroundColor: "#ddd",
-        paddingVertical: 14,
-        borderRadius: 25,
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        paddingHorizontal: 24,
+        paddingTop: 60,
+        justifyContent: "center",
         alignItems: "center",
-        marginTop: "auto",
+    },
+    facebookButton: {
+        backgroundColor: "#fff",
+        color: "black",
+        borderWidth: 1,
+        borderColor: "#e6e2e2ff"
+    },
+    googleButton: {
+        color: "white",
+    },
+    emailButton: {
+        backgroundColor: "white"
+    },
+    logoContainer: {
         marginBottom: 20,
     },
-})
+    logo: {
+        width: 80,
+        height: 80,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "700",
+        color: "#111",
+        textAlign: "center",
+        marginBottom: 6,
+    },
+    subtitle: {
+        fontSize: 16,
+        color: "#555",
+        textAlign: "center",
+        marginBottom: 30,
+    },
+    illustration: {
+        width: "100%",
+        height: 220,
+        marginBottom: 30,
+    },
+    buttonGroup: {
+        width: "100%",
+        gap: 12,
+        marginBottom: 20,
+    },
+    divider: {
+        color: "#aaa",
+        marginBottom: 20,
+        fontSize: 14,
+    },
+    footerText: {
+        fontSize: 14,
+        color: "#444",
+    },
+    signIn: {
+        fontWeight: "600",
+        color: "#007bff",
+    },
+});

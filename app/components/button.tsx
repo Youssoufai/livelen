@@ -1,23 +1,31 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import React from "react";
+import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 
-export default function Button() {
+type ButtonProps = {
+    title: string;
+    onPress?: (event: GestureResponderEvent) => void;
+    style?: ViewStyle;
+    textColor?: string; // 👈 new prop
+};
+
+export default function Button({ title, onPress, style, textColor }: ButtonProps) {
     return (
-        <TouchableOpacity style={styles.confirmButton}>
-            <Text style={{ color: 'white', fontSize: 16 }}>Create a new account</Text>
+        <TouchableOpacity style={[styles.confirmButton, style]} onPress={onPress}>
+            <Text style={[styles.text, { color: textColor }]}>{title}</Text>
         </TouchableOpacity>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     confirmButton: {
-        backgroundColor: "#de1c1cff",
+        backgroundColor: "#de1c1c",
         paddingVertical: 14,
-        color: "#fff",
         borderRadius: 25,
-        fontSize: 19,
         alignItems: "center",
-        marginTop: "auto",
         marginBottom: 20,
     },
-})
+    text: {
+        fontSize: 16,
+        fontWeight: "600",
+    },
+});
