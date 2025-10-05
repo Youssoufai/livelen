@@ -1,4 +1,5 @@
 import { FontAwesome } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Button from "../components/button";
@@ -29,20 +30,20 @@ export default function Welcome() {
                     textColor="#fff"
                     style={{ backgroundColor: "#DB4437" }}
                     icon={<FontAwesome name="google" size={20} color="#DB4437" />}
-                    onPress={() => { }}
+                    onPress={() => { router.push('/(auth)/login') }}
                 />
                 <Button
                     title="Continue with Google"
                     textColor="#000"
                     style={{ backgroundColor: "#fff", borderWidth: 1 }}
-                    icon={<FontAwesome name="google" size={20} color="#DB4437" />}
+                    icon={<FontAwesome name="google" size={20} color="#377bdbff" />}
                     onPress={() => { }}
                 />
                 <Button
-                    title="Continue with Google"
+                    title="Continue with Facebook"
                     textColor="#000"
-                    style={{ backgroundColor: "#fff", borderWidth: 1 }}
-                    icon={<FontAwesome name="google" size={20} color="#DB4437" />}
+                    style={{ backgroundColor: "#ffffffff", borderWidth: 1 }}
+                    icon={<FontAwesome name="facebook" size={20} color="#377bdbff" />}
                     onPress={() => { }}
                 />
             </View>
