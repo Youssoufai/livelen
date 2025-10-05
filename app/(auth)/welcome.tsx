@@ -1,7 +1,8 @@
-import { Facebook, Github } from "lucide-react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Button from "../components/button";
+
 export default function Welcome() {
     return (
         <View style={styles.container}>
@@ -23,9 +24,27 @@ export default function Welcome() {
 
             {/* Action Buttons */}
             <View style={styles.buttonGroup}>
-
-                <Button title="Continue with Facebook" icon={Facebook} onPress={() => { }} />
-                <Button title="Continue with Github" icon={Github} textColor="#000" style={{ backgroundColor: "#fff" }} />
+                <Button
+                    title="Create a new account"
+                    textColor="#fff"
+                    style={{ backgroundColor: "#DB4437" }}
+                    icon={<FontAwesome name="google" size={20} color="#DB4437" />}
+                    onPress={() => { }}
+                />
+                <Button
+                    title="Continue with Google"
+                    textColor="#000"
+                    style={{ backgroundColor: "#fff", borderWidth: 1 }}
+                    icon={<FontAwesome name="google" size={20} color="#DB4437" />}
+                    onPress={() => { }}
+                />
+                <Button
+                    title="Continue with Google"
+                    textColor="#000"
+                    style={{ backgroundColor: "#fff", borderWidth: 1 }}
+                    icon={<FontAwesome name="google" size={20} color="#DB4437" />}
+                    onPress={() => { }}
+                />
             </View>
 
             {/* Divider */}
@@ -34,7 +53,7 @@ export default function Welcome() {
             {/* Sign in link */}
             <Text style={styles.footerText}>
                 Already have an account?{" "}
-                <Pressable onPress={() => { /* navigation logic */ }}>
+                <Pressable onPress={() => { }}>
                     <Text style={styles.signIn}>Sign in</Text>
                 </Pressable>
             </Text>
@@ -101,11 +120,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     footerText: {
-        fontSize: 14,
-        color: "#444",
+        fontSize: 16,
+        color: "#181717ff",
+        fontWeight: "bold"
     },
     signIn: {
         fontWeight: "600",
-        color: "#007bff",
+        color: "#DB4437",
     },
 });

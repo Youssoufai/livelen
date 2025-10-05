@@ -1,4 +1,3 @@
-import { LucideIcon } from "lucide-react-native"; // 👈 icon type
 import React from "react";
 import { GestureResponderEvent, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 
@@ -7,16 +6,15 @@ type ButtonProps = {
     onPress?: (event: GestureResponderEvent) => void;
     style?: ViewStyle;
     textColor?: string;
-    icon?: LucideIcon; // 👈 now accepts a lucide icon component
+    icon?: React.ReactNode; // 👈 accept any icon component now
 };
 
-export default function Button({ title, onPress, style, textColor = "#fff", icon: Icon }: ButtonProps) {
+export default function Button({ title, onPress, style, textColor = "#fff", icon }: ButtonProps) {
     return (
         <TouchableOpacity style={[styles.confirmButton, style]} onPress={onPress}>
             <View style={styles.content}>
-                {Icon && <Icon size={20} color={textColor} style={styles.icon} />}
+                {icon && <View style={styles.icon}>{icon}</View>}
                 <Text style={[styles.text, { color: textColor }]}>{title}</Text>
-
             </View>
         </TouchableOpacity>
     );
