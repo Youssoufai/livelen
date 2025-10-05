@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import Button from "../components/button";
@@ -33,9 +34,10 @@ export default function ForgotPassword() {
 
             {/* Button */}
             <Button
-                title="Send Reset Link"
+                title="Send Reset Code"
                 style={styles.button}
                 textColor="#fff"
+                onPress={() => { router.push('/(auth)/create-password') }}
             />
 
             {/* Back to Login */}
