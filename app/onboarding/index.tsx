@@ -25,6 +25,6 @@ export default function Index() {
   if (firstTime) {
     return <Redirect href="/onboarding" />;
   } else {
-    return <Redirect href="/(auth)/welcome" />;
+    return <Redirect href="/(tabs)/search" />;
   }
 }

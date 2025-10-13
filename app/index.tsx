@@ -5,10 +5,8 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 import CreateAccount from "./onboarding/create-account";
 import LastStep from "./onboarding/last-step";
-import NumVerification from "./onboarding/number-ver";
 import Onboarding1 from "./onboarding/onboarding1";
 import Onboarding2 from "./onboarding/onboarding2";
-import PhoneVerification from "./onboarding/phoneVerification";
 import SuccessScreen from "./onboarding/success";
 
 const { width, height } = Dimensions.get("window");
@@ -21,7 +19,6 @@ export default function OnboardingSwiper() {
         <Onboarding2 key="onb2" activeIndex={activeIndex} />,
         <CreateAccount key="create" onNext={() => setActiveIndex(activeIndex + 1)} />,
         <LastStep key="last" />,
-        <NumVerification key="num" onNext={() => setActiveIndex(activeIndex + 1)} />,
         <PhoneVerification key="phone" />,
         <SuccessScreen key="success" />,
     ];
