@@ -13,7 +13,10 @@ export default function SuccessScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>🎉 You’re all set!</Text>
+            <Text style={styles.title}>🎉 You’re In!</Text>
+            <Text>
+                Your account is active, and you can start exploring live updates right now.
+            </Text>
             <TouchableOpacity style={styles.button} onPress={finishOnboarding}>
                 <Text style={styles.buttonText}>Get Started</Text>
             </TouchableOpacity>

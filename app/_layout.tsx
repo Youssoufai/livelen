@@ -8,8 +8,6 @@ export default function OnboardingLayout() {
             <Stack.Screen name="index" />
             <Stack.Screen name="create-account" />
             <Stack.Screen name="last-step" />
-            <Stack.Screen name="number-ver" />
-            <Stack.Screen name="phoneVerification" />
             <Stack.Screen name="success" />
         </Stack>
     );
