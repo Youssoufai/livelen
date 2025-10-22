@@ -4,11 +4,10 @@ import React from "react";
 
 export default function OnboardingLayout() {
     return (
-        <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" />
-            <Stack.Screen name="create-account" />
-            <Stack.Screen name="last-step" />
-            <Stack.Screen name="success" />
+        <Stack >
+            <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
+
     );
 }

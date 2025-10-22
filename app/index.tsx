@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
 
-import CreateAccount from "./onboarding/create-account";
-import LastStep from "./onboarding/last-step";
-import Onboarding1 from "./onboarding/onboarding1";
-import Onboarding2 from "./onboarding/onboarding2";
-import SuccessScreen from "./onboarding/success";
+import CreateAccount from "./(onboarding)/create-account";
+import LastStep from "./(onboarding)/last-step";
+import Location from "./(onboarding)/location-setup";
+import Onboarding1 from "./(onboarding)/onboarding1";
+import Onboarding2 from "./(onboarding)/onboarding2";
+import SuccessScreen from "./(onboarding)/success";
 
 const { width, height } = Dimensions.get("window");
 
@@ -19,7 +20,7 @@ export default function OnboardingSwiper() {
         <Onboarding2 key="onb2" activeIndex={activeIndex} />,
         <CreateAccount key="create" onNext={() => setActiveIndex(activeIndex + 1)} />,
         <LastStep key="last" />,
-        <PhoneVerification key="phone" />,
+        <Location key="location" />,
         <SuccessScreen key="success" />,
     ];
 

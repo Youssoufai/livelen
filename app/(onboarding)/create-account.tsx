@@ -9,15 +9,33 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import ProgressBar from "../components/progressBar";
 
-export default function CreateAccount() {
+// ✅ Define prop types for this component
+type CreateAccountProps = {
+    activeIndex: number;
+    totalSteps: number;
+    onNextStep?: () => void;
+};
+
+// ✅ Define the allowed focused input names
+type FocusedField = "name" | "email" | "password" | "confirm" | "phone" | "referral" | null;
+
+export default function CreateAccount({
+    activeIndex,
+    totalSteps,
+    onNextStep,
+}: CreateAccountProps) {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmVisible, setConfirmVisible] = useState(false);
+    const [focusedInput, setFocusedInput] = useState<FocusedField>(null);
+
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
+    const [referralCode, setReferralCode] = useState("");
     const [loading, setLoading] = useState(false);
 
     const passwordsMatch = password === confirmPassword || confirmPassword === "";
@@ -51,6 +69,7 @@ export default function CreateAccount() {
                     password,
                     password_confirmation: confirmPassword,
                     phone,
+                    referral_code: referralCode,
                 }),
             });
 
@@ -60,10 +79,15 @@ export default function CreateAccount() {
             if (response.ok) {
                 Alert.alert("Success", "Account created successfully!");
                 console.log("✅ Registered:", data);
-                // You can navigate to login screen here
+                onNextStep && onNextStep();
             } else {
                 console.log("❌ Error:", data);
-                Alert.alert("Error", data.message || "Something went wrong.");
+                if (data.errors) {
+                    const errorMessages = Object.values(data.errors).flat().join("\n");
+                    Alert.alert("Validation Error", errorMessages);
+                } else {
+                    Alert.alert("Error", data.message || "Something went wrong.");
+                }
             }
         } catch (error) {
             setLoading(false);
@@ -74,13 +98,7 @@ export default function CreateAccount() {
 
     return (
         <View style={styles.container}>
-            {/* Progress Bar */}
-            <View style={styles.progressContainer}>
-                <View style={[styles.step, styles.activeStep]} />
-                <View style={styles.step} />
-                <View style={styles.step} />
-                <View style={styles.step} />
-            </View>
+            <ProgressBar activeIndex={activeIndex} totalSteps={totalSteps} />
 
             <Text style={styles.title}>Create your account</Text>
             <Text style={styles.subtitle}>
@@ -88,27 +106,38 @@ export default function CreateAccount() {
             </Text>
 
             <TextInput
-                style={styles.input}
+                style={[styles.input, focusedInput === "name" && styles.focusedInput]}
                 placeholder="John Doe"
                 value={fullName}
+                onFocus={() => setFocusedInput("name")}
+                onBlur={() => setFocusedInput(null)}
                 onChangeText={setFullName}
             />
 
             <TextInput
-                style={styles.input}
+                style={[styles.input, focusedInput === "email" && styles.focusedInput]}
                 placeholder="john@example.com"
                 keyboardType="email-address"
                 value={email}
+                onFocus={() => setFocusedInput("email")}
+                onBlur={() => setFocusedInput(null)}
                 onChangeText={setEmail}
             />
 
             {/* Password */}
-            <View style={styles.passwordContainer}>
+            <View
+                style={[
+                    styles.passwordContainer,
+                    focusedInput === "password" && styles.focusedInput,
+                ]}
+            >
                 <TextInput
                     style={[styles.inputField, { flex: 1 }]}
                     placeholder="Create a password"
                     secureTextEntry={!passwordVisible}
                     value={password}
+                    onFocus={() => setFocusedInput("password")}
+                    onBlur={() => setFocusedInput(null)}
                     onChangeText={setPassword}
                 />
                 <TouchableOpacity
@@ -128,6 +157,7 @@ export default function CreateAccount() {
                 style={[
                     styles.passwordContainer,
                     !passwordsMatch && confirmPassword ? styles.errorBorder : null,
+                    focusedInput === "confirm" && styles.focusedInput,
                 ]}
             >
                 <TextInput
@@ -135,6 +165,8 @@ export default function CreateAccount() {
                     placeholder="Confirm password"
                     secureTextEntry={!confirmVisible}
                     value={confirmPassword}
+                    onFocus={() => setFocusedInput("confirm")}
+                    onBlur={() => setFocusedInput(null)}
                     onChangeText={setConfirmPassword}
                 />
                 <TouchableOpacity
@@ -160,21 +192,36 @@ export default function CreateAccount() {
                     <Text style={styles.code}>+234</Text>
                 </View>
                 <TextInput
-                    style={[styles.input, { flex: 1, marginLeft: 8 }]}
+                    style={[
+                        styles.input,
+                        { flex: 1, marginLeft: 8 },
+                        focusedInput === "phone" && styles.focusedInput,
+                    ]}
                     placeholder="Phone number"
                     keyboardType="phone-pad"
                     value={phone}
+                    onFocus={() => setFocusedInput("phone")}
+                    onBlur={() => setFocusedInput(null)}
                     onChangeText={setPhone}
                 />
             </View>
+
+            {/* Referral Code */}
+            <TextInput
+                style={[styles.input, focusedInput === "referral" && styles.focusedInput]}
+                placeholder="Referral code (optional)"
+                value={referralCode}
+                onFocus={() => setFocusedInput("referral")}
+                onBlur={() => setFocusedInput(null)}
+                onChangeText={setReferralCode}
+                autoCapitalize="characters"
+            />
 
             {/* Register Button */}
             <TouchableOpacity
                 style={[
                     styles.nextButton,
-                    passwordsMatch && password.length >= 8
-                        ? styles.nextButtonActive
-                        : null,
+                    passwordsMatch && password.length >= 8 ? styles.nextButtonActive : null,
                 ]}
                 disabled={loading || !passwordsMatch || password.length < 8}
                 onPress={handleRegister}
@@ -203,21 +250,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#fff",
         paddingHorizontal: 20,
-        paddingTop: 40,
-    },
-    progressContainer: {
-        flexDirection: "row",
-        marginBottom: 30,
-    },
-    step: {
-        flex: 1,
-        height: 3,
-        borderRadius: 2,
-        backgroundColor: "#eee",
-        marginHorizontal: 3,
-    },
-    activeStep: {
-        backgroundColor: "red",
     },
     title: {
         fontSize: 22,
@@ -235,6 +267,9 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         padding: 12,
         marginBottom: 15,
+    },
+    focusedInput: {
+        borderColor: "#EF4444",
     },
     passwordContainer: {
         flexDirection: "row",

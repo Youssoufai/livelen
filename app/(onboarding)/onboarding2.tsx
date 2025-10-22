@@ -3,6 +3,8 @@ import { Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View }
 
 type Onboarding2Props = {
     activeIndex: number;
+    totalSteps: number;
+    onNextStep?: () => void;
 };
 
 export default function Onboarding2({ activeIndex }: Onboarding2Props) {

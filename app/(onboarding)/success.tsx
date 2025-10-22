@@ -8,7 +8,7 @@ export default function SuccessScreen() {
 
     const finishOnboarding = async () => {
         await AsyncStorage.setItem("seenOnboarding", "true"); // 🔴 Save onboarding state
-        router.replace("/(tabs)/search"); // Redirect to auth
+        router.replace("/(root)/(tabs)/search"); // Redirect to auth
     };
 
     return (

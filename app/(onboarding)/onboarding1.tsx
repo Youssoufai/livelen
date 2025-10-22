@@ -1,6 +1,12 @@
 import { Image, StyleSheet, View } from "react-native";
 
-export default function Onboarding1() {
+type Onboarding1Props = {
+    activeIndex: number;
+    totalSteps: number;
+    onNextStep?: () => void;
+};
+
+export default function Onboarding1({ activeIndex, totalSteps, onNextStep }: Onboarding1Props) {
     return (
         <View style={styles.container}>
             <Image
