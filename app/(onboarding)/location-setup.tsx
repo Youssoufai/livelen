@@ -1,7 +1,7 @@
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import ProgressBar from '../components/progressBar';
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import ProgressBar from "../components/progressBar";
 
 type LocationSetupProps = {
     activeIndex: number;
@@ -9,25 +9,53 @@ type LocationSetupProps = {
     onNextStep?: () => void;
 };
 
-export default function LocationSetup({ activeIndex, totalSteps, onNextStep }: LocationSetupProps) {
+export default function LocationSetup({
+    activeIndex,
+    totalSteps,
+    onNextStep,
+}: LocationSetupProps) {
+    const [address, setAddress] = useState("");
+
     return (
         <View style={styles.container}>
+            {/* Progress Bar */}
             <ProgressBar activeIndex={activeIndex} totalSteps={totalSteps} />
 
+            {/* Content */}
             <View style={styles.content}>
-                <View style={styles.iconContainer}>
-                    <Ionicons name="location-outline" size={64} color="#EF4444" />
+                <Text style={styles.title}>Last step! where do you live?</Text>
+                <Text style={styles.description}>
+                    We’ll recommend requests with the best offers for you.
+                </Text>
+
+                {/* Search Input */}
+                <View style={styles.searchContainer}>
+                    <Ionicons name="search" size={18} color="#999" style={styles.searchIcon} />
+                    <TextInput
+                        placeholder="Search address"
+                        placeholderTextColor="#999"
+                        style={styles.input}
+                        value={address}
+                        onChangeText={setAddress}
+                    />
                 </View>
 
-                <Text style={styles.title}>Enable Location Services</Text>
-                <Text style={styles.description}>
-                    We need your location to provide you with real-time updates and
-                    accurate information about your surroundings.
-                </Text>
+                {/* Use Current Location */}
+                <TouchableOpacity style={styles.locationButton}>
+                    <Ionicons name="location-outline" size={18} color="#EF4444" />
+                    <Text style={styles.locationText}>Use current location</Text>
+                </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={onNextStep}>
-                <Text style={styles.buttonText}>Enable Location</Text>
+            {/* Confirm Button */}
+            <TouchableOpacity
+                style={[styles.button, !address && styles.disabledButton]}
+                onPress={onNextStep}
+                disabled={!address}
+            >
+                <Text style={[styles.buttonText, !address && styles.disabledButtonText]}>
+                    Confirm
+                </Text>
             </TouchableOpacity>
         </View>
     );
@@ -36,48 +64,69 @@ export default function LocationSetup({ activeIndex, totalSteps, onNextStep }: L
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
         paddingHorizontal: 20,
         paddingTop: 40,
     },
     content: {
         flex: 1,
-        paddingTop: 20,
-        alignItems: 'center',
-    },
-    iconContainer: {
-        width: 120,
-        height: 120,
-        backgroundColor: '#FEE2E2',
-        borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 32,
+        paddingTop: 40,
     },
     title: {
-        fontSize: 24,
-        fontWeight: '700',
-        color: '#111827',
-        marginBottom: 12,
-        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: "700",
+        color: "#111827",
     },
     description: {
+        fontSize: 14,
+        color: "#6B7280",
+        marginTop: 6,
+        marginBottom: 30,
+    },
+    searchContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#E5E7EB",
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        height: 50,
+    },
+    searchIcon: {
+        marginRight: 8,
+    },
+    input: {
+        flex: 1,
         fontSize: 16,
-        color: '#6B7280',
-        textAlign: 'center',
-        paddingHorizontal: 20,
-        lineHeight: 24,
+        color: "#111827",
+    },
+    locationButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 16,
+    },
+    locationText: {
+        color: "#EF4444",
+        fontWeight: "500",
+        marginLeft: 5,
     },
     button: {
-        backgroundColor: '#EF4444',
+        backgroundColor: "#EF4444",
         paddingVertical: 16,
         borderRadius: 25,
         marginBottom: 20,
     },
+    disabledButton: {
+        backgroundColor: "#E5E7EB",
+    },
     buttonText: {
-        color: '#fff',
+        color: "#fff",
         fontSize: 16,
-        fontWeight: '600',
-        textAlign: 'center',
+        fontWeight: "600",
+        textAlign: "center",
+    },
+    disabledButtonText: {
+        color: "#9CA3AF",
     },
 });

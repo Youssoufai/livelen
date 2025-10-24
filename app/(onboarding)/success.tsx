@@ -1,7 +1,8 @@
 // app/onboarding/success.tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import Button from "../components/button";
 
 export default function SuccessScreen() {
     const router = useRouter();
@@ -13,20 +14,24 @@ export default function SuccessScreen() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>🎉 You’re In!</Text>
-            <Text>
-                Your account is active, and you can start exploring live updates right now.
-            </Text>
-            <TouchableOpacity style={styles.button} onPress={finishOnboarding}>
-                <Text style={styles.buttonText}>Get Started</Text>
-            </TouchableOpacity>
+            <View style={styles.content}>
+                <Text style={styles.title}>🎉 You’re In!</Text>
+                <Text style={styles.subtitle}>
+                    Your account is active, and you can start exploring live updates right now.
+                </Text>
+            </View>
+
+            <View style={styles.footer}>
+                <Button title="Done" onPress={finishOnboarding} style={{ width: '80%' }} />
+            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, justifyContent: "center", alignItems: "center" },
-    title: { fontSize: 22, fontWeight: "bold", marginBottom: 20 },
-    button: { backgroundColor: "red", padding: 15, borderRadius: 10 },
-    buttonText: { color: "#fff", fontWeight: "bold" },
+    container: { flex: 1, paddingHorizontal: 24, paddingVertical: 24, backgroundColor: '#fff' },
+    content: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    footer: { alignItems: 'center', paddingBottom: 40 },
+    title: { fontSize: 22, fontWeight: "bold", marginBottom: 12 },
+    subtitle: { textAlign: "center", marginBottom: 24, paddingHorizontal: 24, color: "#333" },
 });

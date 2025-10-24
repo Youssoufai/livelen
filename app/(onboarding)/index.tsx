@@ -4,9 +4,10 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 import ConfirmEmail from "./confirm-email";
 import CreateAccount from "./create-account";
-import LocationSetup from "./location";
+import LocationSetup from "./location-setup";
 import Onboarding1 from "./onboarding1";
 import Onboarding2 from "./onboarding2";
+import SuccessScreen from "./success";
 const { width, height } = Dimensions.get("window");
 
 export default function OnboardingSwiper() {
@@ -18,6 +19,7 @@ export default function OnboardingSwiper() {
     CreateAccount,
     ConfirmEmail,
     LocationSetup,
+    SuccessScreen
   ];
 
   return (

@@ -1,4 +1,3 @@
-import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import ProgressBar from "../components/progressBar";
@@ -11,7 +10,6 @@ type ConfirmEmailProps = {
 
 export default function ConfirmEmail({ activeIndex, totalSteps, onNextStep }: ConfirmEmailProps) {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
-    const router = useRouter();
 
     const handleChange = (text: string, index: number) => {
         const newCode = [...code];

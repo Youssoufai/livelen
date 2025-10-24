@@ -1,11 +1,16 @@
 // app/confirm-email.jsx
-import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import ProgressBar from "../components/progressBar";
 
-export default function ConfirmEmail() {
+type LastStepProps = {
+    activeIndex: number;
+    totalSteps: number;
+    onNextStep?: () => void;
+};
+
+export default function LastStep({ activeIndex, totalSteps, onNextStep }: LastStepProps) {
     const [code, setCode] = useState(["", "", "", "", "", ""]);
-    const router = useRouter();
 
     const handleChange = (text: string, index: number) => {
         const newCode = [...code];
@@ -15,12 +20,7 @@ export default function ConfirmEmail() {
 
     return (
         <View style={styles.container}>
-            {/* Back arrow and progress bar */}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => router.back()}>
-                    <Text style={styles.backArrow}>←</Text>
-                </TouchableOpacity>
-            </View>
+            <ProgressBar activeIndex={activeIndex} totalSteps={totalSteps} />
 
             {/* Step indicator */}
             <View style={styles.stepIndicator}>
