@@ -14,9 +14,7 @@ export default function SearchScreen() {
         <View style={styles.container}>
             {/* Background Image */}
             <ImageBackground
-                source={{
-                    uri: "https://images.unsplash.com/photo-1604079628040-94301bb21b99?q=80&w=2070&auto=format&fit=crop",
-                }}
+                source={require("@/assets/images/search.png")}
                 style={styles.background}
             >
                 <View style={styles.overlay}>
@@ -81,7 +79,7 @@ export default function SearchScreen() {
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#fff" },
-    background: { height: "45%", justifyContent: "flex-end" },
+    background: { height: "55%", justifyContent: "flex-end" },
     overlay: { paddingHorizontal: 20, paddingBottom: 30 },
     title: { fontSize: 26, color: "#fff", fontWeight: "700" },
     highlight: { textDecorationLine: "underline" },
