@@ -5,7 +5,7 @@ export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                headerShown: false,
+                headerShown: false, // hides headers globally
                 tabBarActiveTintColor: "red",
                 tabBarStyle: {
                     backgroundColor: "#fff",
@@ -26,24 +26,32 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen
+                name="request"
+                options={{
+                    title: "Request",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="chatbubbles" size={size} color={color} />
+                    ),
+                }}
+            />
+            <Tabs.Screen
                 name="bookmark"
                 options={{
-                    title: "bookmark",
+                    title: "Bookmark",
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="list" size={size} color={color} />
+                        <Ionicons name="bookmark" size={size} color={color} />
                     ),
                 }}
             />
             <Tabs.Screen
                 name="profile"
                 options={{
-                    title: "profile",
+                    title: "Profile",
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="notifications" size={size} color={color} />
+                        <Ionicons name="person" size={size} color={color} />
                     ),
                 }}
             />
-
         </Tabs>
     );
 }

@@ -13,14 +13,22 @@ const { width, height } = Dimensions.get("window");
 
 export default function OnboardingSwiper() {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [canSwipe, setCanSwipe] = useState(false);
 
     const handleIndexChange = ({ index }: { index: number }) => {
-        console.log('Current slide index:', index);
-        setActiveIndex(index);
+        // Only allow moving back or if canSwipe is true
+        if (index < activeIndex || canSwipe) {
+            console.log('Current slide index:', index);
+            setActiveIndex(index);
+            setCanSwipe(false); // Reset swipe permission after each slide change
+        }
     };
 
     const totalSteps = 3; // Only counting the main steps (CreateAccount, LastStep, LocationSetup)
-    const handleNext = () => setActiveIndex(activeIndex + 1);
+    const handleNext = () => {
+        setCanSwipe(true); // Enable swiping when next is clicked (form is valid)
+        setActiveIndex(activeIndex + 1);
+    };
 
     // Progress bar should only show in the main flow (CreateAccount, ConfirmEmail, Location)
     const getProgressIndex = (index: number) => {
@@ -72,10 +80,12 @@ export default function OnboardingSwiper() {
     return (
         <View style={{ flex: 1 }}>
             <SwiperFlatList
-                index={0}
+                index={activeIndex}
                 onChangeIndex={handleIndexChange}
                 showPagination={false}
                 data={slides}
+                scrollEnabled={false} // Disable all swipe gestures
+                disableGesture={true} // Additional gesture disable
                 renderItem={({ item }) => (
                     <View style={styles.child}>
                         {item}

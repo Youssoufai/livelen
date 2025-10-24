@@ -77,8 +77,8 @@ export default function CreateAccount({
             setLoading(false);
 
             if (response.ok) {
-                Alert.alert("Success", "Account created successfully!");
                 console.log("✅ Registered:", data);
+                // Only allow moving to next screen after successful registration
                 onNextStep && onNextStep();
             } else {
                 console.log("❌ Error:", data);
