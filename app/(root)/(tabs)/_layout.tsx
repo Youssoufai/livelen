@@ -5,7 +5,7 @@ export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                headerShown: false, // hides headers globally
+                headerShown: false,
                 tabBarActiveTintColor: "red",
                 tabBarStyle: {
                     backgroundColor: "#fff",
@@ -26,7 +26,7 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen
-                name="request"
+                name="requests"
                 options={{
                     title: "Request",
                     tabBarIcon: ({ color, size }) => (
